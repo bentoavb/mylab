@@ -2,6 +2,6 @@
 
 Aplicativo para ajustar e plotar dados.
 
-![Figura 1|128x72](https://github.com/bentoavb/mylab/blob/master/images/img1.png)
-![Figura 2|128x72](https://github.com/bentoavb/mylab/blob/master/images/img2.png)
-![Figura 3|128x72](https://github.com/bentoavb/mylab/blob/master/images/img3.png)
+<img src="https://github.com/bentoavb/mylab/blob/master/images/img1.png" width="180" height="320" />
+<img src="https://github.com/bentoavb/mylab/blob/master/images/img2.png" width="180" height="320" />
+<img src="https://github.com/bentoavb/mylab/blob/master/images/img3.png" width="180" height="320" />
