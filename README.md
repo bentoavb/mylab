@@ -1,1 +1,3 @@
-# mylab
+# myLAB
+
+Aplicativo para ajustar e plotar dados.
