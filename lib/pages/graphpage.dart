@@ -23,14 +23,16 @@ class _GraphPageState extends State<GraphPage> {
       [[0.0,0.0]], [[0.0,0.0]]
   ];
   List<double> Theta = [];
-  bool showfit = false;
-  bool showfitbutton = false;
+  bool showFit = false;
+  String fitType;
+  bool showFitButton = false;
   DBitem item;
   double slider = 0;
 
   List<String> DropValues = [
     "Polinômio de grau 1", "Polinômio de grau 2", 
-    "Polinômio de grau 3", "Exponencial"];
+    "Polinômio de grau 3", "Polinômio de grau 4",
+    "Polinômio de grau 5", "Exponencial"];
   String dropdownValue = "Polinômio de grau 1";
 
   Widget NavDrawer() {
@@ -55,12 +57,13 @@ class _GraphPageState extends State<GraphPage> {
             title: Text('Ajuste de Curva', style: TextStyle(color: Colors.blueGrey[400]),),
             onTap: () {
               setState(() {
-                showfitbutton = !showfitbutton;
+                showFitButton = !showFitButton;
               });
             },
           ),
-          if(showfitbutton) FitMenu(),
-          if(showfitbutton && showfit) FitParameters(),
+          if(showFitButton) FitMenu(),
+          if(showFitButton && showFit && fitType == "pol") FitParametersPol(),
+          if(showFitButton && showFit && fitType == "exp") FitParametersExp(),
           ListTile(
             leading: Icon(Icons.file_download, color: Colors.blueGrey[400]),
             title: Text('Download do Gráfico', style: TextStyle(color: Colors.blueGrey[400]),),
@@ -83,7 +86,7 @@ class _GraphPageState extends State<GraphPage> {
       ),
       onChanged: (String newValue) {
         dropdownValue = newValue;
-        showfit = false;
+        showFit = false;
         chartData = [data1];
         setState(() { });
       },
@@ -166,7 +169,7 @@ class _GraphPageState extends State<GraphPage> {
     super.initState();
   }
 
-  Widget FitParameters(){
+  Widget FitParametersPol(){
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Column(children: <Widget>[
@@ -178,25 +181,45 @@ class _GraphPageState extends State<GraphPage> {
     );
   }
 
+  Widget FitParametersExp(){
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+      child: Column(children: <Widget>[
+          Text('y = e^(a + b*x)',
+          textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),),
+          Text('coeficiente de a: ${Theta[0].toStringAsFixed(3)}',
+          textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),),
+          Text('coeficiente de b: ${Theta[1].toStringAsFixed(3)}',
+          textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),)
+        ]
+      )
+    );
+  }
+
   Widget FitMenu()
   {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         dropdown(),
-        Switch(value: showfit, onChanged: (value){
+        Switch(value: showFit, onChanged: (value){
             setState(() {
               if (value == false){
                 chartData = [data1];
-                showfit = false;
+                showFit = false;
               }else{
-                showfit = true;
+                showFit = true;
                 int n;
                 bool exp = false;
+                fitType = "pol";
                 for (var i = 0; i < DropValues.length; i++) {
                   if(dropdownValue == DropValues[i]) n = i+1;
                 }
-                if(dropdownValue == DropValues[DropValues.length-1]){ n=1; exp=true; }
+                if(dropdownValue == DropValues[DropValues.length-1]){   
+                  n=1; 
+                  exp=true;
+                  fitType = "exp";
+                }
                 curveFit(n, exp);
                 chartData = [data1, data2];
               }
