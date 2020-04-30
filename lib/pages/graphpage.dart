@@ -187,9 +187,9 @@ class _GraphPageState extends State<GraphPage> {
       child: Column(children: <Widget>[
           Text('y = e^(a + b*x)',
           textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),),
-          Text('coeficiente de a: ${Theta[0].toStringAsFixed(3)}',
+          Text('coeficiente a: ${Theta[0].toStringAsFixed(3)}',
           textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),),
-          Text('coeficiente de b: ${Theta[1].toStringAsFixed(3)}',
+          Text('coeficiente b: ${Theta[1].toStringAsFixed(3)}',
           textAlign: TextAlign.left, style: TextStyle(fontSize: 17, color: Colors.blueGrey[700]),)
         ]
       )
